@@ -24,6 +24,19 @@ describe Board do
     end
   end
 
+  describe "#input_is_valid" do
+    it "allows integers" do
+      expect(new_board.input_is_valid?("0")).to be true
+      expect(new_board.input_is_valid?("1")).to be true
+      expect(new_board.input_is_valid?("2")).to be true
+    end
+
+    it "reject extraneous strings" do
+      expect(new_board.input_is_valid?("string")).to be false
+      expect(new_board.input_is_valid?("\n")).to be false
+    end
+  end
+
   describe "#place_move" do
     it "fills designated space with a value" do
       placed_move = new_board.place_move(0)
@@ -40,4 +53,6 @@ describe Board do
       expect(new_board.board).to eq(expected_return)
     end
   end
+
+
 end

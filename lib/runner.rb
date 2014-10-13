@@ -11,22 +11,36 @@ class Runner
     counter = 0
     until game_board.game_over?
       if counter.even?
-        game_display.prompt_for_O_move
-        move_O = get_move
-        place_move(move_O.to_i)
-        display_board(game_board.board)
+        o_move
       else
-        game_display.prompt_for_X_move
-        move_X = get_move
-        place_move(move_X.to_i)
-        display_board(game_board.board)
+        x_move
       end
       counter += 1
     end
+    end_game
+  end
+
+  def o_move
+    game_display.prompt_for_O_move
+    move_O = get_move
+    place_move(move_O.to_i)
+    display_board(game_board.board)
+  end
+
+  def x_move
+    game_display.prompt_for_X_move
+    move_X = get_move
+    place_move(move_X.to_i)
+    display_board(game_board.board)
+  end
+
+  def end_game
     if game_board.player_X_wins?
       game_display.announce_X_wins
     elsif game_board.player_O_wins?
       game_display.announce_O_wins
+    elsif game_board.tie_game?
+      game_display.announce_tie_game
     end
   end
 

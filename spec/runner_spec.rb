@@ -5,12 +5,27 @@ require 'mock_display'
 describe Runner do
   let(:new_game) { described_class.new(MockBoard.new, MockDisplay.new) }
 
+  describe "#play_game" do
+  end
+
+  describe "#o_move" do
+  end
+
+  describe "#x_move" do
+  end
+
+  describe "#end_game" do
+  end
+
   describe "#get_move" do
     it "prompts the user for a move" do
       allow(new_game).to receive(:get_move) { "gets called" }
 
       expect(new_game.get_move).to eq("gets called")
     end
+  end
+
+  describe "#move_is_valid" do
   end
 
   describe "#place_move" do

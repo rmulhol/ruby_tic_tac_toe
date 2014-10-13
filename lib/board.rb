@@ -48,7 +48,11 @@ class Board
     check_array.include? [true, true, true]
   end
 
+  def tie_game?
+    !board.include? 0
+  end
+
   def game_over?
-    player_O_wins? || player_X_wins?
+    player_O_wins? || player_X_wins? || tie_game?
   end
 end

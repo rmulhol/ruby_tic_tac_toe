@@ -62,4 +62,8 @@ class Display
   def announce_O_wins
     puts "O wins!"
   end
+
+  def announce_tie_game
+    puts "Tie game!"
+  end
 end
