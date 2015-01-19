@@ -1,13 +1,19 @@
-#Tic Tac Toe in Ruby
+#Tic Tac Toe
 
-##Description
-This is a tic tac toe game written in Ruby. It's currently only configured for human vs human play on the command line.
+##Summary
 
-##How to Play
-To play, navigate to the lib directory and run `ruby main.rb` in the command line.
+This is a tic tac toe game written in Ruby.
 
-##How to Run Tests
-To run the tests, navigate to the project directory and run `rspec <optional spec directory>` in the command line.
+##How to Run
+
+To play the game, navigate to the project directory and type `ruby main.rb`.
+
+##How to Test
+
+To run all of the tests, navigate to the project directory and type `rake test` on the command line.
+
+to run an individual test file, navigate to the project directory and type `ruby test/<file_name>`.
 
 ##Versions
-This game was written in Ruby 2.1.2 and Rspec 3.1.3
+
+This projects was composed using Ruby 2.1.2 and Minitest. You may need to work with these versions in order for all features to function properly.
