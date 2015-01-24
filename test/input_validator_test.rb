@@ -18,8 +18,10 @@ class InputValidatorTest < Minitest::Test
   def test_valid_player_type
     assert @input_validator.valid_player_type?("1"), "valid_player_type? should return true for '1'"
     assert @input_validator.valid_player_type?("2"), "valid_player_type? should return true for '2'"
+    assert @input_validator.valid_player_type?("3"), "valid_player_type? should return true for '3'"
     assert @input_validator.valid_player_type?("human"), "valid_player_type? should return true for 'human'"
-    assert @input_validator.valid_player_type?("ai"), "valid_player_type? should return true for 'ai'"
+    assert @input_validator.valid_player_type?("beatable"), "valid_player_type? should return true for 'beatable'"
+    assert @input_validator.valid_player_type?("unbeatable"), "valid_player_type? should return true for 'smart'"
     assert !@input_validator.valid_player_type?("non-valid"), "valid_player_type? should return false if input does not correspond to one of the available options"
   end
 
@@ -28,15 +30,23 @@ class InputValidatorTest < Minitest::Test
     assert @input_validator.human_player?("human"), "human_player? should return true for 'human'"
     assert @input_validator.human_player?("HuMaN"), "human_player? should be case-insensitive to return true for 'HuMaN'"
     assert !@input_validator.human_player?("2"), "human_player? should return false for numbers other than 1"
-    assert !@input_validator.human_player?("ai"), "human_player? should return false for strings other than 'human'"
+    assert !@input_validator.human_player?("beatable"), "human_player? should return false for strings other than 'human'"
   end
 
-  def test_ai_player
-    assert @input_validator.ai_player?("2"), "ai_player? should return true for '2'"
-    assert @input_validator.ai_player?("ai"), "ai_player? should return true for 'ai'"
-    assert @input_validator.ai_player?("aI"), "ai_player? should be case-insensitive and return true for 'aI'"
-    assert !@input_validator.ai_player?("1"), "ai_player? should return false for numbers other than 2"
-    assert !@input_validator.ai_player?("human"), "ai_player? should return false for strings other than 'ai'"
+  def test_beatable_ai_player
+    assert @input_validator.beatable_ai_player?("2"), "beatable_ai_player? should return true for '2'"
+    assert @input_validator.beatable_ai_player?("beatable"), "beatable_ai_player? should return true for 'beatable'"
+    assert @input_validator.beatable_ai_player?("bEaTaBlE"), "beatable_ai_player? should be case-insensitive and return true for 'bEaTaBlE'"
+    assert !@input_validator.beatable_ai_player?("1"), "beatable_ai_player? should return false for numbers other than 2"
+    assert !@input_validator.beatable_ai_player?("unbeatable"), "beatable_ai_player? should return false for strings other than 'beatable'"
+  end
+
+  def test_unbeatable_ai_player
+    assert @input_validator.unbeatable_ai_player?("3"), "unbeatable_ai_player? should return true for '3'"
+    assert @input_validator.unbeatable_ai_player?("unbeatable"), "unbeatable_ai_player? should return true for 'unbeatable'"
+    assert @input_validator.unbeatable_ai_player?("uNbEaTaBlE"), "unbeatable_ai_player? should be case-insensitive and return true for 'uNbEaTaBlE'"
+    assert !@input_validator.unbeatable_ai_player?("1"), "unbeatable_ai_player? should return false for numbers other than 3"
+    assert !@input_validator.unbeatable_ai_player?("beatable"), "unbeatable_ai_player? should return false for strings other than 'unbeatable'"
   end
 
   def test_response_is_affirmative

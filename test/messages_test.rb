@@ -26,7 +26,8 @@ class MessagesTest < Minitest::Test
     assert_includes @messages.request_player_type(1), "What type", "request_player_type should query user for player type"
     assert_includes @messages.request_player_type(1), "1", "request_player_type should include the number of the player it's getting a type for"
     assert_includes @messages.request_player_type(1), "Human", "request_player_type should offer human player as an available type"
-    assert_includes @messages.request_player_type(1), "AI", "request_player_type should offer AI player as an available type"
+    assert_includes @messages.request_player_type(1), "Beatable", "request_player_type should offer Beatable AI player as an available type"
+    assert_includes @messages.request_player_type(1), "Unbeatable", "request_player_type should offer Unbeatable AI player as an available type"
   end
 
   def test_request_player_move_signature

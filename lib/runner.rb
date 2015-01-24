@@ -1,11 +1,11 @@
 class Runner
   attr_reader :user_interface, :board, :player_1, :player_2
 
-  def initialize(**args)
-    @user_interface = args.fetch(:user_interface)
-    @board = args.fetch(:board)
-    @player_1 = args.fetch(:player_1)
-    @player_2 = args.fetch(:player_2)
+  def initialize(ui, board, player_1, player_2)
+    @user_interface = ui
+    @board = board
+    @player_1 = player_1
+    @player_2 = player_2
   end
 
   def run

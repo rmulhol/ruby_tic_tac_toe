@@ -20,7 +20,8 @@ class Messages
   def request_player_type(num)
     "What type of player would you like player #{num} to be? Choose from the following:
     1. Human player
-    2. AI player"
+    2. Beatable AI player
+    3. Unbeatable AI player"
   end
 
   def request_player_move_signature(num)

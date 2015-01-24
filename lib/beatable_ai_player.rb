@@ -1,4 +1,4 @@
-class DumbAiPlayer
+class BeatableAiPlayer
   attr_reader :move_signature
 
   def initialize(move_signature)

@@ -4,15 +4,21 @@ class InputValidator
   end
 
   def valid_player_type?(player_type)
-    human_player?(player_type) || ai_player?(player_type)
+    human_player?(player_type) || 
+    beatable_ai_player?(player_type) ||
+    unbeatable_ai_player?(player_type)
   end
 
   def human_player?(player_type)
     return_boolean player_type =~ /1|human/i
   end
 
-  def ai_player?(player_type)
-    return_boolean player_type =~ /2|ai/i
+  def beatable_ai_player?(player_type)
+    return_boolean player_type =~ /^[2|beatable]/i
+  end
+
+  def unbeatable_ai_player?(player_type)
+    return_boolean player_type =~ /3|unbeatable/i
   end
 
   def response_is_affirmative?(response)

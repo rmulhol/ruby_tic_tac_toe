@@ -9,8 +9,6 @@ require Pathname(__dir__) + "lib" + "runner.rb"
 
 command_line_interface = CommandLineInterface.new(InputOutput.new, Messages.new, BoardFormatter.new, InputValidator.new)
 
-configurer = Configuration.new(command_line_interface)
-game_configuration = configurer.configure_game
-
-game_runner = Runner.new(game_configuration)
+user_selected_game_configuration = command_line_interface.get_game_configuration
+game_runner = Configuration.new(command_line_interface, user_selected_game_configuration).configure_game
 game_runner.run

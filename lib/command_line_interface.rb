@@ -6,6 +6,40 @@ class CommandLineInterface
     @messages = messages
     @board_formatter = board_formatter
     @input_validator = input_validator
+    @unavailable_move_signatures = []
+  end
+
+
+  def get_game_configuration
+    welcome_user
+    modify_game_configuration = modify_game_configuration?
+    if modify_game_configuration
+      get_custom_game_configuration
+    else
+      { board_side_length: 3, 
+        player_1: { player_type: :human_player, move_signature: "X" }, 
+        player_2: { player_type: :beatable_ai_player, move_signature: "O" } }
+    end
+  end
+
+  def get_custom_game_configuration
+    board_side_length = get_board_side_length
+    player_1 = get_player_info(1)
+    player_2 = get_player_info(2)
+
+    { board_side_length: board_side_length, 
+      player_1: player_1, 
+      player_2: player_2 }
+  end
+
+  def get_player_info(num)
+    player_type = get_player_type(num)
+    player_move_signature = get_player_move_signature(num, @unavailable_move_signatures)
+    
+    @unavailable_move_signatures << player_move_signature
+    
+    { player_type: player_type, 
+      move_signature: player_move_signature }
   end
 
   def welcome_user
@@ -40,8 +74,10 @@ class CommandLineInterface
   def return_player_type(player_type)
     if input_validator.human_player?(player_type)
       :human_player
-    elsif input_validator.ai_player?(player_type)
-      :dumb_ai_player
+    elsif input_validator.beatable_ai_player?(player_type)
+      :beatable_ai_player
+    elsif input_validator.unbeatable_ai_player?(player_type)
+      :unbeatable_ai_player
     end
   end
 
