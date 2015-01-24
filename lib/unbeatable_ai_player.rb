@@ -14,7 +14,7 @@ class UnbeatableAiPlayer
 
     board.open_spaces.each do |space|
       board.place_move(space, move_signature)
-      score = negamax(board, false, opponent, 1)
+      score = negamax(board, false, opponent, 100, -100)
       if score > top_score
         top_score = score
         move_index = space
@@ -25,21 +25,20 @@ class UnbeatableAiPlayer
     move_index
   end
 
-  def negamax(board, my_turn, opponent, depth)
+  def negamax(board, my_turn, opponent, alpha, beta)
     return score_board(board, opponent) if board.game_over?(move_signature, opponent)
-
-    worst_score = 100.0
 
     board.open_spaces.each do |space|
       my_turn ? board.place_move(space, move_signature) : board.place_move(space, opponent)
-      score = -negamax(board, !my_turn, opponent, depth + 1)
-      if score < worst_score
-        worst_score = score
+      score = -negamax(board, !my_turn, opponent, -beta, -alpha)
+      if score < alpha
+        alpha = score
       end
       board.place_move(space, nil)
+      break if alpha <= beta
     end
 
-    return worst_score
+    return alpha
   end
 
   def score_board(board, opponent)
