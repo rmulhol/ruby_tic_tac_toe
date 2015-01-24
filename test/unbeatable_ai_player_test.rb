@@ -34,16 +34,6 @@ class UnbeatableAiPlayerTest < Minitest::Test
     assert_includes fork_blocking_moves, @unbeatable_ai_player_as_O.get_move(board_with_possible_fork), "get_move should block fork if no win or loss blocking move available"
   end
 
-  def test_minimax
-    board_with_X_win = Board.new(3)
-    board_with_X_win.place_move(1, "X")
-    board_with_X_win.place_move(2, "X")
-    board_with_X_win.place_move(3, "X")
-
-    assert_equal 10, @unbeatable_ai_player_as_X.minimax(board_with_X_win, true, "O", 1), "minimax should return 10 if board state guarantees player win"
-    assert_equal -10, @unbeatable_ai_player_as_O.minimax(board_with_X_win, true, "X", 1), "minimax should return -10 if board state guarantees player loss"
-  end
-
   def test_score_board
     board_with_X_win = Board.new(3)
     board_with_X_win.place_move(1, "X")
@@ -52,8 +42,8 @@ class UnbeatableAiPlayerTest < Minitest::Test
 
     board_without_win = Board.new(3)
 
-    assert_equal 10, @unbeatable_ai_player_as_X.score_board(board_with_X_win, "O"), "score_board should return 10 if player wins"
-    assert_equal -10, @unbeatable_ai_player_as_O.score_board(board_with_X_win, "X"), "score_board should return -10 if player loses"
+    assert_equal 10, @unbeatable_ai_player_as_X.score_board(board_with_X_win, "O"), "score_board should return 10 if either player wins"
+    assert_equal 10, @unbeatable_ai_player_as_O.score_board(board_with_X_win, "X"), "score_board should return 10 if either player wins"
 
     assert_equal 0, @unbeatable_ai_player_as_X.score_board(board_without_win, "X"), "score_board should return 0 if neither player has won"
   end
