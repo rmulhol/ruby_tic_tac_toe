@@ -17,8 +17,8 @@ class CommandLineInterface
       get_custom_game_configuration
     else
       { board_side_length: 3, 
-        player_1: { player_type: :human_player, move_signature: "X" }, 
-        player_2: { player_type: :beatable_ai_player, move_signature: "O" } }
+        player_1: { type: :human_player, move_signature: "X" }, 
+        player_2: { type: :unbeatable_ai_player, move_signature: "O" } }
     end
   end
 
@@ -38,7 +38,7 @@ class CommandLineInterface
     
     @unavailable_move_signatures << player_move_signature
     
-    { player_type: player_type, 
+    { type: player_type, 
       move_signature: player_move_signature }
   end
 

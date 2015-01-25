@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require "pathname"
 require Pathname(__dir__).parent + "lib" + "input_output.rb"
-require Pathname(__dir__).parent + "lib" + "mock_io_stream.rb"
+require Pathname(__dir__) + "mocks" + "mock_io_stream.rb"
 
 class InputOutputTest < Minitest::Test
   def setup

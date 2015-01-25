@@ -1,13 +1,14 @@
 require "minitest/autorun"
 require "pathname"
 require Pathname(__dir__).parent + "lib" + "board_formatter.rb"
+require Pathname(__dir__) + "mocks" + "mock_board.rb"
 
 class BoardFormatterTest < Minitest::Test
 
   def setup
     @board_formatter = BoardFormatter.new
-    @board_3x3 = Board.new(3)
-    @board_4x4 = Board.new(4)
+    @board_3x3 = MockBoard.new(3)
+    @board_4x4 = MockBoard.new(4)
     @crlf = "\n"
   end
 

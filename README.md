@@ -2,9 +2,11 @@
 
 ##Summary
 
-This is a tic tac toe game written in Ruby.
+This is a command line implementation of tic tac toe written in Ruby. The game logic is derived from the `negamax_ttt` gem.
 
 ##How to Run
+
+To complete an initial setup, run `bundle install`.
 
 To play the game, navigate to the project directory and type `ruby main.rb`.
 

@@ -2,11 +2,11 @@ require "minitest/autorun"
 require "pathname"
 require Pathname(__dir__).parent + "lib" + "command_line_interface.rb"
 require Pathname(__dir__).parent + "lib" + "input_output.rb"
-require Pathname(__dir__).parent + "lib" + "mock_io_stream.rb"
 require Pathname(__dir__).parent + "lib" + "messages.rb"
 require Pathname(__dir__).parent + "lib" + "board_formatter.rb"
 require Pathname(__dir__).parent + "lib" + "input_validator.rb"
-require Pathname(__dir__).parent + "lib" + "board.rb"
+require Pathname(__dir__) + "mocks" + "mock_io_stream.rb"
+require Pathname(__dir__) + "mocks" + "mock_board.rb"
 
 class CommandLineInterfaceTest < Minitest::Test
 
@@ -31,12 +31,12 @@ class CommandLineInterfaceTest < Minitest::Test
     cli_with_affirmative_input = generate_cli_with_input(["yes", "4", "beatable", "O", "human", "X"])
 
     default_game_configuration = { board_side_length: 3, 
-        player_1: { player_type: :human_player, move_signature: "X" }, 
-        player_2: { player_type: :beatable_ai_player, move_signature: "O" } }
+        player_1: { type: :human_player, move_signature: "X" }, 
+        player_2: { type: :unbeatable_ai_player, move_signature: "O" } }
 
     custom_game_configuration = { board_side_length: 4,
-        player_1: { player_type: :beatable_ai_player, move_signature: "O" },
-        player_2: { player_type: :human_player, move_signature: "X" } }
+        player_1: { type: :beatable_ai_player, move_signature: "O" },
+        player_2: { type: :human_player, move_signature: "X" } }
 
     assert_equal default_game_configuration, cli_with_negative_input.get_game_configuration, "get_game_configuration should return default game if user opts not to create a custom game"
     assert_equal custom_game_configuration, cli_with_affirmative_input.get_game_configuration, "get_game_configuration should return custom game settings in accordance with user input"
@@ -47,12 +47,12 @@ class CommandLineInterfaceTest < Minitest::Test
     cli_with_cvc_input = generate_cli_with_input(["4", "beatable", "O", "unbeatable", "X"])
     
     hvh_game_settings = { board_side_length: 3, 
-      player_1: { player_type: :human_player, move_signature: "X" }, 
-      player_2: { player_type: :human_player, move_signature: "O" } }
+      player_1: { type: :human_player, move_signature: "X" }, 
+      player_2: { type: :human_player, move_signature: "O" } }
 
     cvc_game_settings = { board_side_length: 4, 
-      player_1: { player_type: :beatable_ai_player, move_signature: "O" }, 
-      player_2: { player_type: :unbeatable_ai_player, move_signature: "X" } }
+      player_1: { type: :beatable_ai_player, move_signature: "O" }, 
+      player_2: { type: :unbeatable_ai_player, move_signature: "X" } }
 
     assert_equal hvh_game_settings, cli_with_hvh_input.get_custom_game_configuration, "get_custom_game_configuration should return HvH game if requested by the user"
     assert_equal cvc_game_settings, cli_with_cvc_input.get_custom_game_configuration, "get_custom_game_configuration should return CvC game if requested by the user"
@@ -62,8 +62,8 @@ class CommandLineInterfaceTest < Minitest::Test
     cli_with_human_input = generate_cli_with_input(["human", "X"])
     cli_with_ai_input = generate_cli_with_input(["beatable", "X"])
 
-    human_player_settings = { player_type: :human_player, move_signature: "X" }
-    ai_player_settings = { player_type: :beatable_ai_player, move_signature: "X" }
+    human_player_settings = { type: :human_player, move_signature: "X" }
+    ai_player_settings = { type: :beatable_ai_player, move_signature: "X" }
 
     assert_equal human_player_settings, cli_with_human_input.get_player_info(1), "get_player_info should return human player settings if user selects 'human'"
     assert_equal ai_player_settings, cli_with_ai_input.get_player_info(1), "get_player_info should return ai player settings if user selects 'ai'"
@@ -83,7 +83,7 @@ class CommandLineInterfaceTest < Minitest::Test
   end
 
   def test_describe_board_configuration
-    test_board = Board.new(3)
+    test_board = MockBoard.new(3)
 
     assert_equal "puts was called", @cli.describe_board_configuration(test_board), "describe_board_configuration should call IO#puts to describe the board"
   end
@@ -134,13 +134,13 @@ class CommandLineInterfaceTest < Minitest::Test
   end
 
   def test_display_board
-    test_board = Board.new(3)
+    test_board = MockBoard.new(3)
 
     assert_equal "puts was called", @cli.display_board(test_board), "display_board should call IO#puts to display the current state of the board"
   end
 
   def test_announce_outcome
-    test_board = Board.new(3)
+    test_board = MockBoard.new(3)
 
     assert_equal "puts was called", @cli.announce_outcome(test_board, "X", "O"), "announce_outcome should call IO#puts to announce the outcome of the game"
   end

@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require "pathname"
 require Pathname(__dir__).parent + "lib" + "messages.rb"
-require Pathname(__dir__).parent + "lib" + "board.rb"
+require Pathname(__dir__) + "mocks" + "mock_board.rb"
 
 class MessagesTest < Minitest::Test
 
@@ -36,8 +36,8 @@ class MessagesTest < Minitest::Test
   end
 
   def test_introduce_board
-    board_3x3 = Board.new(3)
-    board_4x4 = Board.new(4)
+    board_3x3 = MockBoard.new(3)
+    board_4x4 = MockBoard.new(4)
 
     assert_includes @messages.introduce_board(board_3x3), "indexed like so", "introduce_board should introduce board display with indexes"
     assert_includes @messages.introduce_board(board_3x3), "3x3", "introduce_board should include '3x3' for a 3x3 board"
