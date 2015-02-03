@@ -99,20 +99,17 @@ class CommandLineInterfaceTest < Minitest::Test
   def test_get_player_type
     cli_with_valid_input = generate_cli_with_input(["human"])
     cli_with_invalid_input = generate_cli_with_input(["invalid input", "beatable"])
+    cli_with_unbeatable_player_input = generate_cli_with_input(["unbeatable"])
 
     assert_equal :human_player, cli_with_valid_input.get_player_type(1), "get_player_type should return the symbol corresponding to the user's valid input"
     assert_equal :beatable_ai_player, cli_with_invalid_input.get_player_type(2), "get_player_type should reject invalid input until valid input is entered"
-  
-    # test for unbeatable player
-
+    assert_equal :unbeatable_ai_player, cli_with_unbeatable_player_input.get_player_type(1), "get_player_type should return the symbol corresponding to the user's valid input"
   end
 
   def test_return_player_type
     assert_equal :human_player, @cli.return_player_type("human"), "return_player_type should return the symbol corresponding to a human player if input is 'human'"
     assert_equal :beatable_ai_player, @cli.return_player_type("beatable"), "return_player_type should return the symbol corresponding to a beatable ai player if the input is 'beatable'"
-  
-    # test for unbeatable player
-
+    assert_equal :unbeatable_ai_player, @cli.return_player_type("unbeatable"), "return_player_type should return the symbol corresponding to an unbeatable ai player if the input is 'unbeatable'"
   end
 
   def test_get_player_move_signature
@@ -140,9 +137,8 @@ class CommandLineInterfaceTest < Minitest::Test
   end
 
   def test_announce_outcome
-    test_board = MockBoard.new(3)
-
-    assert_equal "puts was called", @cli.announce_outcome(test_board, "X", "O"), "announce_outcome should call IO#puts to announce the outcome of the game"
+    assert_equal "puts was called", @cli.announce_outcome(:tie), "announce_outcome should call IO#puts to announce a tie game"
+    assert_equal "puts was called", @cli.announce_outcome("X"), "announce_outcome should call IO#puts to announce the winner of the game"
   end
 
   def test_play_again

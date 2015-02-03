@@ -52,12 +52,8 @@ class MessagesTest < Minitest::Test
     assert_includes @messages.announce_invalid_move, "not a valid move", "announce_invalid_move should announce that move is not valid"
   end
 
-  def test_player_1_wins
-    assert_includes @messages.player_1_wins, "Player 1 wins!", "player_1_wins should announce a win for player 1"
-  end
-
-  def test_player_2_wins
-    assert_includes @messages.player_2_wins, "Player 2 wins!", "player_2_wins should announce a win for player 2"
+  def test_player_wins
+    assert_includes @messages.player_wins("X"), "Player X wins!", "player_wins should announce a win for the player passed in"
   end
 
   def test_tie_game

@@ -104,13 +104,11 @@ class CommandLineInterface
     io.puts(board_formatter.display_board(board))
   end
 
-  def announce_outcome(board, player_1_move_signature, player_2_move_signature)
-    if board.player_wins?(player_1_move_signature)
-      io.puts(messages.player_1_wins)
-    elsif board.player_wins?(player_2_move_signature)
-      io.puts(messages.player_2_wins)
-    else
+  def announce_outcome(winner = :tie)
+    if winner == :tie
       io.puts(messages.tie_game)
+    else
+      io.puts(messages.player_wins(winner))
     end
   end
 

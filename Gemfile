@@ -1,3 +1,3 @@
 source "https://rubygems.org"
 
-gem "negamax_ttt", "~> 0.0.0.1"
+gem "negamax_ttt", "~> 0.0.1"

@@ -40,12 +40,8 @@ class Messages
     "That is not a valid move. Please try again."
   end
 
-  def player_1_wins
-    "Player 1 wins!"
-  end
-
-  def player_2_wins
-    "Player 2 wins!"
+  def player_wins(winner)
+    "Player #{winner} wins!"
   end
 
   def tie_game
